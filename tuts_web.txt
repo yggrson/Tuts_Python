@@ -1,0 +1,51 @@
+crawler
+
+
+import requests
+from bs4 import BeautifulSoup
+
+response = requests.get("https://stackoverflow.com/questions")
+soup = BeautifulSoup(response.text, "html.parser")
+
+questions = soup.select(".question-summary")
+print(questions[0].attrs)
+print(questions[0].get("id", 0))
+for question in questions:
+    print(question.select_one(".question-hyperlink").getText())
+    print(question.select_one(".vote-count-post").getText())
+
+
+
+
+--------------------------------------
+
+
+
+
+
+import requests
+from bs4 import BeautifulSoup
+
+response = requests.get("https://dziennikzachodni.pl/wiadomosci/katowice/")
+soup = BeautifulSoup(response.text, "html.parser")
+
+naglowki = soup.select(".elementRegionalne")
+
+# for t in naglowki:
+#     print(t.h2)
+
+for head in naglowki:
+    h2 = str(head.find_all('h2'))
+    emp = []
+    for i in h2:
+        emp.append(i)
+    stripped = (emp[6:-6])
+    ready_stripped = ""
+    ready_h2 = ready_stripped.join(stripped)
+    if ready_h2.strip() == "":
+        pass
+    else:
+        print(ready_h2.strip())
+
+#list of strings joint by list comphehension to get names of movies
+# output = ', '.join([m.title for m in movies])

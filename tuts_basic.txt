@@ -1,0 +1,326 @@
+remove dups:
+
+numbers = [2, 5, 7, 5, 3, 8, 7]
+unique = []
+for number in numbers:
+    if number not in unique:
+        unique.append(number)
+print(unique)
+
+-------------------------------------------------
+number converter:
+
+phone = input('Phone: ')
+mapper = {
+    "1" : "One",
+    "2" : "Two",
+    "3" : "Three",
+    "4" : "Four",
+    "5" : "Fire",
+    "6" : "Six",
+    "7" : "Seven",
+    "8" : "Eight",
+    "9" : "Nine",
+    "0" : "Zero"
+}
+output = ""
+for character in phone:
+    output += mapper.get(character, '!') + " "
+print(output)
+
+-------------------------------------------------
+
+emoji converter
+
+message = input("> ")
+words = message.split(' ')
+emojis = {
+    ":)": "😊",
+    ":(": "😒"
+}
+output = ''
+for word in words:
+    output += emojis.get(word, word) + " "
+print(output)
+
+-------------------------------------------------
+
+roll dices
+
+import random
+
+class Dice:
+    def roll(self):
+        first = random.randint(1, 6)
+        second = random.randint(1, 6)
+        return first, second
+
+
+dice = Dice()
+print(dice.roll())
+
+
+age = 22
+
+message = "yes" if age >= 18 else "not"
+print(message)
+
+
+-------------------------------------------------
+
+
+sort ugly
+
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12)
+]
+
+
+def sort_item(item):
+    return item[1]
+
+
+items.sort(key=sort_item)
+print(items)
+
+or items.sort(key=lambda item: item[1])
+print(items)
+
+
+--------------------------------------------------
+
+
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12)
+]
+
+# map return list as is iterable (list(map))
+prices = list(map(lambda item: item[1], items))
+print(prices)
+
+
+or list comprehension
+
+prices = [item[1] for item in items]
+
+---------------------------------------------------
+
+
+items = [
+    ("Product1", 10),
+    ("Product2", 9),
+    ("Product3", 12)
+]
+
+# filter return list as is iterable (list(filter))
+filtered = list(filter(lambda item: item[1] >= 10, items))
+print(filtered)
+
+
+or list comprehension
+
+filtered = [item for itme in items if item[1] >= 10]
+
+
+
+---------------------------------------------------
+
+
+iterating over dictionary
+
+# x=key, 1=value
+point = dict(x=1, y=2)
+point["z"] = 3
+print(point.get("a", 0))
+for key, value in point.items():
+    print(key, value)
+
+
+--------------------------------------------------
+
+dictionary comprehension
+
+# create dictionary with comprehension
+values = {x: x*2 for x in range(5)}
+print(values)
+
+
+
+
+
+
+
+
+
+
+sentence = "This is a common iteration interview question"
+
+sentence_list = {}
+for char in sentence:
+    if char in sentence_list:
+        sentence_list[char] += 1
+    else:
+        sentence_list[char] = 1
+
+
+new_list = zip(sentence_list.keys(), sentence_list.values())
+new_list_sorted = sorted(new_list, key=lambda value: value[1], reverse=True)
+print(new_list_sorted[0])
+
+
+--------------------------------------------
+
+
+
+
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f"{self.x} , {self.y}"
+
+    @classmethod
+    def zero(cls):
+        return cls(0, 0)
+
+    def move(self):
+        print(f"Moved {self.x}, {self.y}")
+
+
+point = Point.zero()
+point.move()
+print(point)
+
+
+------------------------------------------------
+
+
+
+class TagCloud:
+    def __init__(self):
+        self.__tags = {}
+
+    def add(self, tag):
+        self.__tags[tag.lower()] = self.__tags.get(tag.lower(), 0) + 1
+
+    def __getitem__(self, tag):
+        return self.__tags.get(tag.lower(), 0)
+
+
+cloud = TagCloud()
+cloud.add("pYt")
+cloud.add("pyt")
+cloud.add("Pyt")
+print(cloud.__tags)
+print(cloud["pyt"])
+
+
+
+---------------------------------------
+
+
+unpythonic getter, setter
+
+class Product:
+    def __init__(self, price):
+        self.set_price(price)
+
+    def get_price(self):
+        return self.__price
+
+    def set_price(self, value):
+        if value < 0:
+            raise ValueError("Cant be zero")
+        self.__price = value
+
+
+product = Product(-50)
+
+
+and =>
+
+
+class Product:
+    def __init__(self, price):
+        self.price = price
+
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, value):
+        if value < 0:
+            raise ValueError("Cant be zero")
+        self.__price = value
+
+
+product = Product(10)
+print(product.price)
+
+
+
+
+------------------------------
+
+
+class constructor overriding:
+
+super().__init__() ===> next class constructor
+
+
+
+---------------------------------
+
+
+
+from abc import ABC, abstractmethod
+
+
+# common methods in derritive
+class UIContol(ABC):
+    @abstractmethod
+    def draw(self):
+        pass
+
+
+# 2 to be used
+class TextBox(UIContol):
+    def draw(self):
+        print("TextBox")
+
+
+class DropDownList(UIContol):
+    def draw(self):
+        print("DropDownList")
+
+
+def draw(controls):
+    for control in controls:
+        control.draw()
+
+
+#polymorph in methods
+ddl = DropDownList()
+textbox = TextBox()
+draw([ddl, textbox])
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
